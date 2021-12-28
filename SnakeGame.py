@@ -159,6 +159,9 @@ if __name__ == "__main__":
                     dir = Directions.left
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     dir = Directions.right
+                elif event.key == pygame.K_q:
+                    execute = False
+                    run = False
         
         # When lost
         if lost:
