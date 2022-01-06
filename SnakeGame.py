@@ -8,6 +8,8 @@ import random
 from enum import Enum
 
 """ Move snake with direction """
+
+
 def MoveSnake():
     global positions, dir
     global execute, started, lost
@@ -19,19 +21,19 @@ def MoveSnake():
     # Moving snake
     if dir == Directions.left:
         pass
-        positions.insert(0,[x-1, y])
+        positions.insert(0, [x-1, y])
         positions.pop(-1)
     elif dir == Directions.right:
-        positions.insert(0,[x+1, y])
+        positions.insert(0, [x+1, y])
         positions.pop(-1)
     elif dir == Directions.up:
-        positions.insert(0,[x, y-1])
+        positions.insert(0, [x, y-1])
         positions.pop(-1)
     elif dir == Directions.down:
-        positions.insert(0,[x, y+1])
+        positions.insert(0, [x, y+1])
         positions.pop(-1)
 
-    # Checking if snake is in border 
+    # Checking if snake is in border
     if positions[0][0] == 45 or positions[0][0] == -1:
         execute = False
         started = False
@@ -50,7 +52,10 @@ def MoveSnake():
         lost = True
         score = 1
 
+
 """ Increase snake size when food is eaten """
+
+
 def IncSize():
     global positions, dir
     try:
@@ -71,44 +76,55 @@ def IncSize():
         elif dir == Directions.down:
             x = positions[-1][0]
             y = positions[-1][1] - 1
-        
 
-    positions.append([x,y])
+    positions.append([x, y])
+
 
 """ PyGame show snake and food when playing """
+
+
 def Show(positions, food):
     global x, y, width
     global scoreText
 
-    win.fill((0,0,0))
+    win.fill((0, 0, 0))
 
     # Border
-    pygame.draw.rect(win, (42,157,143), (x,y,450,450))
-    pygame.draw.rect(win, (0,0,0), (x+2,y+2,446, 446))
+    pygame.draw.rect(win, (42, 157, 143), (x, y, 450, 450))
+    pygame.draw.rect(win, (0, 0, 0), (x+2, y+2, 446, 446))
 
     # Food
-    pygame.draw.rect(win, (233, 196, 106), (x+food[0]*width, y+food[1]*width, width, width))
+    pygame.draw.rect(win, (233, 196, 106),
+                     (x+food[0]*width, y+food[1]*width, width, width))
 
     # Snake
     for i in positions:
-        pygame.draw.rect(win, (231, 111, 81), (x+i[0]*width, y+i[1]*width, width, width))
-    
+        pygame.draw.rect(win, (231, 111, 81),
+                         (x+i[0]*width, y+i[1]*width, width, width))
+
     # Score
-    win.blit(scoreText, (25,500))
+    win.blit(scoreText, (25, 500))
+
 
 """ Choose random food position """
+
+
 def FoodPos():
-    x = random.randint(0,44)
-    y = random.randint(0,44)
+    x = random.randint(0, 44)
+    y = random.randint(0, 44)
 
     return (x, y)
 
+
 """ Enum of the directions snake can move """
+
+
 class Directions(Enum):
     right = 1
     left = 2
     up = 3
     down = 4
+
 
 """ Main Function """
 if __name__ == "__main__":
@@ -124,14 +140,15 @@ if __name__ == "__main__":
     width = 10
 
     # initializing when nothing is pressed
-    startText = titleFont.render("Press Space to Start", True, (42,157,143))
-    resumeText = titleFont.render("Press Space to Resume", True, (42,157,143))
+    startText = titleFont.render("Press Space to Start", True, (42, 157, 143))
+    resumeText = titleFont.render(
+        "Press Space to Resume", True, (42, 157, 143))
 
-    win.fill((0,0,0))
-    win.blit(startText, (130,260))
+    win.fill((0, 0, 0))
+    win.blit(startText, (130, 260))
     pygame.display.update()
 
-    positions = [[22,22],]
+    positions = [[22, 22], ]
     dir = Directions.right
     food = FoodPos()
     score = 1
@@ -162,22 +179,23 @@ if __name__ == "__main__":
                 elif event.key == pygame.K_q:
                     execute = False
                     run = False
-        
+
         # When lost
         if lost:
-            win.fill((0,0,0))
+            win.fill((0, 0, 0))
             Show(positions, food)
 
-            win.blit(startText, (115,250))
+            win.blit(startText, (115, 250))
             pygame.display.update()
 
         if execute:
             # if the game has not started yet
             if not started:
-                scoreText = titleFont.render("Score: {}".format(score), True, (42,157,143))
+                scoreText = titleFont.render(
+                    "Score: {}".format(score), True, (42, 157, 143))
             # Reseting new game values after losing
             if lost:
-                positions = [[22,22],]
+                positions = [[22, 22], ]
                 dir = Directions.right
                 food = FoodPos()
 
@@ -185,13 +203,14 @@ if __name__ == "__main__":
             lost = False
 
             pygame.time.delay(150)
-            
+
             MoveSnake()
 
             # Food is eaten
             if positions[0] == list(food):
                 score += 1
-                scoreText = titleFont.render("Score: {}".format(score), True, (42,157,143))
+                scoreText = titleFont.render(
+                    "Score: {}".format(score), True, (42, 157, 143))
                 food = FoodPos()
                 IncSize()
 
@@ -201,8 +220,8 @@ if __name__ == "__main__":
         # When game is paused
         else:
             if started:
-                win.fill((0,0,0))
+                win.fill((0, 0, 0))
                 Show(positions, food)
 
-                win.blit(resumeText, (115,250))
+                win.blit(resumeText, (115, 250))
                 pygame.display.update()
