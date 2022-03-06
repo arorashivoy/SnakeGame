@@ -110,8 +110,12 @@ def Show(positions, food):
 
 
 def FoodPos():
+    global positions
     x = random.randint(0, 44)
     y = random.randint(0, 44)
+
+    if [x, y] in positions:
+        x, y = FoodPos()
 
     return (x, y)
 
@@ -148,7 +152,7 @@ if __name__ == "__main__":
     win.blit(startText, (130, 260))
     pygame.display.update()
 
-    positions = [[22, 22], ]
+    positions = [[22, 22], ]  # Position of the body of the snake
     dir = Directions.right
     food = FoodPos()
     score = 1
