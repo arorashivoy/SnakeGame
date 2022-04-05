@@ -9,6 +9,16 @@ from enum import Enum
 
 
 class Snake:
+    """ Snake Object
+        Attributes:
+            positions: list of positions of the snake
+            dir: direction of the snake
+            score: score of the snake
+        Methods:
+            MoveSnake: move snake with direction
+            IncSize: increase snake size when food is eaten
+    """
+
     def __init__(self):
         self.positions = [[22, 22], ]  # Position of the body of the snake
         self.dir = Directions.right
@@ -82,7 +92,11 @@ class Snake:
 
 
 def Show(positions, food):
-    """ PyGame show snake and food when playing """
+    """ PyGame show snake and food when playing 
+        Args:
+            positions: list of positions of the snake
+            food: position of the food
+    """
     global x, y, width
     global scoreText
 
@@ -106,7 +120,10 @@ def Show(positions, food):
 
 
 def FoodPos(snake):
-    """ Choose random food position """
+    """ Choose random food position 
+        Args:
+            snake: snake object
+    """
     x = random.randint(0, 44)
     y = random.randint(0, 44)
 
