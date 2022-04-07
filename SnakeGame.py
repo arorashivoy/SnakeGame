@@ -98,7 +98,7 @@ def Show(positions: list[list[int]], food: tuple[int]):
             food (tuple[int]): position of the food
     """
     global x, y, width
-    global scoreText
+    global scoreText, quitText
 
     win.fill((0, 0, 0))
 
@@ -125,6 +125,7 @@ def Show(positions: list[list[int]], food: tuple[int]):
 
     # Score
     win.blit(scoreText, (25, 500))
+    win.blit(quitText, (348, 500))
 
 
 def FoodPos(snake: Snake):
@@ -159,6 +160,7 @@ if __name__ == "__main__":
     win = pygame.display.set_mode((500, 550))
     pygame.display.set_caption("Snake Game")
     titleFont = pygame.font.SysFont(None, 35)
+    bodyFont = pygame.font.SysFont(None, 25)
 
     x = 25
     y = 25
@@ -170,6 +172,7 @@ if __name__ == "__main__":
     startText = titleFont.render("Press Space to Start", True, (217, 145, 186))
     resumeText = titleFont.render(
         "Press Space to Resume", True, (217, 145, 186))
+    quitText = bodyFont.render("Press 'q' to Quit", True, (217, 145, 186))
 
     # initializing when nothing is pressed
     win.fill((0, 0, 0))
