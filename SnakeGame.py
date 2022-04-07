@@ -11,10 +11,10 @@ from enum import Enum
 class Snake:
     """ Snake Object
         Attributes:
-            positions: list of positions of the snake
-            dir: direction of the snake
-            score: score of the snake
-            length: length of the snake
+            positions (list[list[int]]): list of positions of the snake
+            dir (Direction): direction of the snake
+            score (int): score of the snake
+            length (int): length of the snake
         Methods:
             MoveSnake: move snake with direction
             IncSize: increase snake size when food is eaten
@@ -52,19 +52,16 @@ class Snake:
             execute = False
             started = False
             lost = True
-            self.score = 1
         elif self.positions[0][1] == 45 or self.positions[0][1] == -1:
             execute = False
             started = False
             lost = True
-            self.score = 1
 
         # Check if snake hit his own body
         if self.positions[0] in self.positions[1:]:
             execute = False
             started = False
             lost = True
-            self.score = 1
 
     def IncSize(self):
         """ Increase snake size when food is eaten """
@@ -106,9 +103,8 @@ def Show(positions: list[list[int]], food: tuple[int]):
     win.fill((0, 0, 0))
 
     # Border
-    pygame.draw.rect(win, (212, 160, 200), (x-5, y-5, 460, 460))
-    pygame.draw.rect(win, (255, 255, 255), (x-3, y-3, 456, 456))
-    pygame.draw.rect(win, (217, 145, 186), (x-2, y-2, 454, 454))
+    pygame.draw.rect(win, (217, 145, 186), (x-5, y-5, 460, 460))
+    pygame.draw.rect(win, (242, 192, 219), (x-3, y-3, 456, 456))
     pygame.draw.rect(win, (0, 0, 0), (x, y, 450, 450))
 
     # Food
@@ -228,8 +224,9 @@ if __name__ == "__main__":
                     "Score: {}".format(snake.score), True, (217, 145, 186))
             # Reseting new game values after losing
             if lost:
-                snake.positions = [[22, 22], ]
-                snake.dir = Directions.right
+                snake.__init__()
+                scoreText = titleFont.render(
+                    "Score: {}".format(snake.score), True, (217, 145, 186))
                 food = FoodPos(snake)
 
             started = True
