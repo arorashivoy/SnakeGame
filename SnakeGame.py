@@ -91,7 +91,7 @@ class Snake:
         self.length += 1
 
 
-def Show(positions: list[list[int]], food: tuple[int]):
+def Show(positions, food):
     """ PyGame show snake and food when playing  
         Args:
             positions (list[list[int]]): list of positions of the snake
